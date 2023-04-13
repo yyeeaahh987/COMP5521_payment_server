@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
 import braintreeRouter from './api/braintree';
+import btcRouter from './api/btc';
 
 const app: Express = express();
 const port = 8080;
@@ -19,6 +20,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api/braintree', braintreeRouter);
+app.use('/api/btc', btcRouter);
 
 app.listen(port, () => {
   console.log(`[Server]: I am running at http://localhost:${port}`);

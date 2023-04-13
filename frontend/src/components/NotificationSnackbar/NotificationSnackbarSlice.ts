@@ -28,22 +28,28 @@ export const NotificationSnackbarSlice = createSlice(
     extraReducers: (builder) => {
       builder
         .addMatcher(isPending(
+          ExchangeSlice.getBraintreeAmount,
+          ExchangeSlice.getBtcAmount,
           BraintreeSlice.topUp,
           BraintreeSlice.searchHistory
         ), (state, action) => {
           return initialState;
         })
         .addMatcher(isFulfilled(
+          ExchangeSlice.getBraintreeAmount,
+          ExchangeSlice.getBtcAmount,
           BraintreeSlice.topUp,
           BraintreeSlice.searchHistory
         ), (state, action) => {
-          return notificationOf("success", action.payload.message);
+          return notificationOf("success", action.payload?.message);
         })
         .addMatcher(isRejected(
+          ExchangeSlice.getBraintreeAmount,
+          ExchangeSlice.getBtcAmount,
           BraintreeSlice.topUp,
           BraintreeSlice.searchHistory
         ), (state, action) => {
-          return notificationOf("warning", String(action.error.message));
+          return notificationOf("warning", String(action.error?.message));
         })
     }
   }

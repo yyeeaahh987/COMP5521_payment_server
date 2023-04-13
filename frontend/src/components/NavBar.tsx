@@ -17,7 +17,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router-dom';
 
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import AddIcon from '@mui/icons-material/Add';
 
 const drawerWidth = 230;
@@ -134,7 +134,7 @@ function NavBar(props: any) {
   var drawerItems = [
     {
       to: "/",
-      icon: CurrencyExchangeIcon,
+      icon: SwapHorizIcon,
       text: "Exchange"
     },
     {

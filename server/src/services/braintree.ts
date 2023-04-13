@@ -31,16 +31,11 @@ export async function topUp(amount: Number): Promise<any> {
 
                 return res.transaction;
             }
-            else {
-                console.error('Failed to top up Braintree:');
-                console.error(res);
-                throw new ApiError('Failed to top up Braintree');
-            }
+            else throw new ApiError(res.message);
         })
         .catch(err => {
-            console.error('Error occurred in Braintree top up:')
             console.error(err);
-            throw new ApiError('Error occurred in Braintree top up');
+            throw new ApiError('Failed to top up Braintree account');
         });
 }
 

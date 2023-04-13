@@ -28,7 +28,7 @@ function NotificationSnackbar() {
     >
       <Alert
         onClose={() => setIsOpen(false)}
-        severity={alertProps.severity as AlertColor}
+        severity={!alertProps.severity ? undefined : alertProps.severity as AlertColor}
         sx={{ width: '100%' }}
       >
         {alertProps.message}

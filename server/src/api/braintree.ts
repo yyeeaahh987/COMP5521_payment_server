@@ -32,9 +32,8 @@ router.get('/history/search', async (req: Request, res: Response, next: NextFunc
       }));
     });
     stream.on("error", (err) => {
-        console.error('Error occurred in searching Braintree history:')
         console.error(err);
-        throw new ApiError('Error occurred in searching Braintree history');
+        throw new ApiError('Failed to get Braintree history');
     });
     stream.resume();
   } catch (err) {

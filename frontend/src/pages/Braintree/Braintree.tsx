@@ -23,7 +23,7 @@ function Braintree() {
       <Typography style={{textAlign: "left", fontSize: 20, marginBottom: 20}}>
         <b>Braintree Top Up</b>
       </Typography>
-      <TopUp />
+      <TopUpPanel />
       <br />
       <hr />
       <Typography style={{textAlign: "left", fontSize: 20, marginTop: 20}}>
@@ -34,7 +34,7 @@ function Braintree() {
   );
 }
 
-function TopUp() {
+function TopUpPanel() {
   const dispatch = useAppDispatch();
   const sliceState = useAppSelector((state) => state.braintree);
 
@@ -54,7 +54,7 @@ function TopUp() {
             Total Sales Volume
             <Refresh
               style={{marginLeft: 5, fontSize: 18, cursor: sliceState.isLoading ? 'default' : 'pointer'}}
-              onClick={() => !sliceState.isLoading && dispatch(topUp(sliceState.topUpValue))}
+              onClick={() => !sliceState.isLoading && dispatch(searchHistory())}
             />
           </div>
           <div style={{fontSize: 28}}>
