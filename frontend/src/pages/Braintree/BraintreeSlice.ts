@@ -1,11 +1,13 @@
-import { createSlice, createAsyncThunk, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, isRejected, isPending, isFulfilled } from '@reduxjs/toolkit';
 import * as braintreeApi from '../../api/braintree';
 
 const initialState = {
   isLoading: true,
+  topUpValue: '',
   transactionHistory: {
     rows: [],
-    totalCount: 0
+    totalCount: 0,
+    totalApproved: 0,
   },
 }
 
@@ -27,6 +29,7 @@ export const searchHistory = createAsyncThunk(
     return {
       rows: apiResponse.data.data.rows,
       totalCount: apiResponse.data.data.totalCount,
+      totalApproved: apiResponse.data.data.totalApproved,
     };
   }
 );
@@ -36,26 +39,27 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     resetStore: () => initialState,
+    setTopUpValue: (state, action) => {
+      state.topUpValue = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(topUp.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.topUpValue = '';
       })
       .addCase(searchHistory.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.transactionHistory.rows = action.payload.rows;
-        state.transactionHistory.totalCount = action.payload.totalCount;
+        state.transactionHistory = action.payload;
       })
-      .addMatcher(isAnyOf(
-          topUp.pending,
-          searchHistory.pending,
+      .addMatcher(isPending(
+          topUp,
+          searchHistory,
         ), (state, action) => {
         state.isLoading = true;
       })
-      .addMatcher(isAnyOf(
-          topUp.rejected,
-          searchHistory.rejected,
+      .addMatcher(isRejected(
+          searchHistory,
         ), (state, action) => {
         state.isLoading = false;
       })

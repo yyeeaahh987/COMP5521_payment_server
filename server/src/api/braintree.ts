@@ -25,6 +25,10 @@ router.get('/history/search', async (req: Request, res: Response, next: NextFunc
         return res.status(200).send(createApiResponse<any>(null, {
           rows: transactions,
           totalCount: transactions.length,
+          totalApproved: transactions.length == 0 ? 0 :
+                          transactions.filter(t => t.processorResponseText == "Approved")
+                            .map(t => parseFloat(t.amount))
+                            .reduce((x, y) => x + y, 0)
       }));
     });
     stream.on("error", (err) => {

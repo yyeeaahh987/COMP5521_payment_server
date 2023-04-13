@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -20,7 +20,7 @@ import { NavLink } from 'react-router-dom';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import AddIcon from '@mui/icons-material/Add';
 
-const drawerWidth = 180;
+const drawerWidth = 230;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -120,12 +120,16 @@ const DrawerItem = (props: any) => {
   );
 };
 
-function NavBar() {
+function NavBar(props: any) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => { setOpen(true) };
   const handleDrawerClose = () => { setOpen(false) };
+
+  useEffect(() => {
+    if (open && props.navBarClose) setOpen(false);
+  }, [props.navBarClose]);
 
   var drawerItems = [
     {
@@ -136,7 +140,7 @@ function NavBar() {
     {
       "to": "/top-up",
       "icon": AddIcon,
-      "text": "Top Up"
+      "text": "Braintree Top Up"
     }
   ];
 
